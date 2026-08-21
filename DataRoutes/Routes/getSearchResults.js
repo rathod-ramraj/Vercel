@@ -18,6 +18,20 @@ export const getSearchResults = async (
   genresQq
 ) => {
   try {
+    const aniListResults = await searchAniListAnime(searchQuery, page, 24);
+    if (aniListResults && aniListResults.length > 0) {
+      return {
+        manto: true,
+        data: {
+          animes: aniListResults,
+          searchQuery,
+          currentPage: page,
+          hasNextPage: aniListResults.length >= 24,
+          totalPages: Math.ceil(aniListResults.length / 24) || 1
+        }
+      };
+    }
+
     try {
       const data = await hianime.search(`${searchQuery}`, page, {
         sort, language: lang, status, type, rated, season,
@@ -29,19 +43,18 @@ export const getSearchResults = async (
           data: data
         };
       }
-    } catch (scraperErr) {
-      console.warn("HiAnime search failed, trying fallback:", scraperErr.message);
+    } catch {
+      // Scraper fallback
     }
 
-    const fallbackResults = await searchAniListAnime(searchQuery, page);
     return {
       manto: true,
       data: {
-        animes: fallbackResults,
+        animes: [],
         searchQuery,
         currentPage: page,
-        hasNextPage: fallbackResults.length >= 20,
-        totalPages: Math.ceil(fallbackResults.length / 20) || 1
+        hasNextPage: false,
+        totalPages: 1
       }
     };
   } catch (err) {

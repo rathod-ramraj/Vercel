@@ -15,7 +15,7 @@ const AnimeCard = ({ anime }) => {
           className="object-cover object-top aspect-[9/12] w-full "
         />
         <div className="absolute flex gap-1 left-2 bottom-2 shadow-md">
-          {anime.episodes.dub > 0 && (
+          {anime.episodes?.dub > 0 && (
             <div
               className="bg-dubBackground rounded-sm text-[9px]
                         px-[6px] py-[2px] flex gap-1 shadow-md text-dubForeground"
@@ -24,7 +24,7 @@ const AnimeCard = ({ anime }) => {
               <span className="font-[700]">{anime.episodes.dub}</span>
             </div>
           )}
-          {anime.episodes.sub > 0 && (
+          {anime.episodes?.sub > 0 && (
             <div
               className="bg-subBackground rounded-sm text-[9px]
                         px-[6px] py-[2px] flex gap-1 shadow-md text-subForeground
