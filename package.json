@@ -1,0 +1,50 @@
+{
+  "name": "animekun",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@radix-ui/react-alert-dialog": "^1.1.6",
+    "@radix-ui/react-aspect-ratio": "^1.1.1",
+    "@radix-ui/react-dialog": "^1.1.5",
+    "@radix-ui/react-popover": "^1.1.6",
+    "@radix-ui/react-slot": "^1.1.2",
+    "@radix-ui/react-tabs": "^1.1.2",
+    "@splidejs/react-splide": "^0.7.12",
+    "@splidejs/splide": "^4.1.4",
+    "aniwatch": "^2.27.9",
+    "artplayer": "^5.3.0",
+    "artplayer-plugin-chapter": "^1.0.1",
+    "axios": "^1.7.9",
+    "cheerio": "^1.0.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "dompurify": "^3.2.3",
+    "embla-carousel": "^8.5.2",
+    "embla-carousel-autoplay": "^8.5.2",
+    "embla-carousel-react": "^8.5.2",
+    "framer-motion": "^12.6.3",
+    "hls.js": "^1.5.20",
+    "input-otp": "^1.4.2",
+    "lucide-react": "^0.473.0",
+    "next": "^16.0.7",
+    "next-themes": "^0.4.4",
+    "prop-types": "^15.8.1",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
+    "sonner": "^1.7.4",
+    "tailwind-merge": "^2.6.0",
+    "tailwindcss-animate": "^1.0.7",
+    "vaul": "^1.1.2",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1"
+  }
+}
