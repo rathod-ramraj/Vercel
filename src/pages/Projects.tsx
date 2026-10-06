@@ -96,6 +96,23 @@ export default function ProjectsPage() {
   const [hoverImage, setHoverImage] = useState<string | null>(null);
   const [hoverRepo, setHoverRepo] = useState<Repo | null>(null);
 
+  const [totalPublicRepos, setTotalPublicRepos] = useState<number | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`/api/gh/users/${GH_USER}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (!cancelled && d && typeof d.public_repos === "number") {
+          setTotalPublicRepos(d.public_repos);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   useEffect(() => {
     let cancelled = false;
     fetch(`/api/gh/users/${GH_USER}/repos?per_page=100&sort=updated`)
@@ -180,7 +197,7 @@ export default function ProjectsPage() {
             Live feed from GitHub — sources, side experiments, and infrastructure. Hover any card to lift the README preview.
           </p>
           <div className="pf-projects-stats" data-reveal="true">
-            <div><span>{repos ? repos.length : "—"}</span><label>Public Repos</label></div>
+            <div><span>{totalPublicRepos ?? (repos ? repos.length : "—")}</span><label>Public Repos</label></div>
             <div><span>{repos ? totalStars : "—"}</span><label>Total Stars</label></div>
             <div><span>{repos ? totalForks : "—"}</span><label>Total Forks</label></div>
           </div>

@@ -211,10 +211,11 @@ const OSS_PRS: OssPr[] = [
 
 function useCounter(target: number, suffix: string, isVisible: boolean): string {
   const [val, setVal] = useState("0" + suffix);
-  const started = useRef(false);
+  const lastTarget = useRef<number | null>(null);
   useEffect(() => {
-    if (!isVisible || started.current) return;
-    started.current = true;
+    if (!isVisible) return;
+    if (lastTarget.current === target) return;
+    lastTarget.current = target;
     const duration = 1800;
     let startTs: number | null = null;
     let raf: number;
@@ -981,7 +982,23 @@ export function Portfolio() {
   const navProgressRef = useRef<HTMLSpanElement>(null);
   const heroWordRef = useRef<HTMLHeadingElement>(null);
   const heroSubRef = useRef<HTMLParagraphElement>(null);
+  const [publicRepos, setPublicRepos] = useState<number | null>(null);
   const onPreloaderDone = useCallback(() => setReady(true), []);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`/api/gh/users/${GH_USER}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (!cancelled && d && typeof d.public_repos === "number") {
+          setPublicRepos(d.public_repos);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     if (!ready) return;
@@ -1276,7 +1293,7 @@ export function Portfolio() {
           <div className="pf-section-shell">
             <p className="pf-chapter-label" data-reveal="true">02 / Numbers</p>
             <div className="pf-metrics-grid">
-              <MetricCard value="42"  label="Public GitHub Repos"       delay={0} />
+              <MetricCard value={publicRepos !== null ? String(publicRepos) : "44"} label="Public GitHub Repos" delay={0} />
               <MetricCard value="210+" label="LeetCode Problems Solved" delay={100} />
               <MetricCard value="2028" label="NIT Jalandhar Batch"      delay={200} />
               <MetricCard value="100%" label="Commitment to Clean Code" delay={300} />
