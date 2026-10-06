@@ -1,0 +1,3 @@
+*, *::before, *::after { box-sizing: border-box; }
+html { background: #000; }
+body { margin: 0; padding: 0; }

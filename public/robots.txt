@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+User-agent: Googlebot-Image
+Allow: /
+Allow: /favicon-48x48.png
+Allow: /favicon-96x96.png
+
+Sitemap: https://rathodram.pages.dev/sitemap.xml
+Sitemap: https://rathodram.pages.dev/sitemap.txt
